@@ -18,7 +18,8 @@ fs.readFile(
     if (err) {
       throw new Error(err);
     }
-    localUsers = JSON.parse(data).users;
+    // localUsers = JSON.parse(data).users;
+    localUsers = JSON.parse(data);
   }
 );
 
@@ -40,7 +41,7 @@ app.post('/api/users/create-user', (req, res) => {
       localUsers.push(req.body);
       fs.writeFile(
         'storage.json',
-        JSON.stringify({ users: localUsers }),
+        JSON.stringify(localUsers),
         err => {
           throw new Error(err);
         }
@@ -65,7 +66,7 @@ app.put('/api/users/update-user', (req, res) => {
     }
     fs.writeFile(
       'storage.json',
-      JSON.stringify({ users: localUsers }),
+      JSON.stringify(localUsers),
       err => {
         throw new Error(err);
       }
@@ -85,7 +86,7 @@ app.delete('/api/users/delete-user', (req, res) => {
     localUsers.splice(currentUserPosition, 1);
     fs.writeFile(
       'storage.json',
-      JSON.stringify({ users: localUsers }),
+      JSON.stringify(localUsers),
       err => {
         throw new Error(err);
       }

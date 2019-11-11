@@ -1,9 +1,7 @@
-{
-  "users": [
-    {
-      "id": 1,
-      "name": "Artsiom",
-      "surname": "Rak"
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "name": "Artsiom",
+    "surname": "Rak"
+  }
+]
