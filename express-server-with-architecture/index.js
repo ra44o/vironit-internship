@@ -28,6 +28,7 @@ app.get('/api/users/get-users', (req, res) => {
 });
 
 app.post('/api/users/create-user', (req, res) => {
+  // we must pass the whole object to write it
   if (!req.body.id || !req.body.name || !req.body.surname) {
     res.json({ msg: "Bad request" });
     res.end();
@@ -51,6 +52,7 @@ app.post('/api/users/create-user', (req, res) => {
 });
 
 app.put('/api/users/update-user', (req, res) => {
+  // here we must pass the id and can pass name and surname or both of them
   if (!localUsers.some(user => user.id === req.body.id)) {
     res.json({ msg: `User with id ${req.body.id} does not exist` });
     res.end();
@@ -75,7 +77,7 @@ app.put('/api/users/update-user', (req, res) => {
 
 app.delete('/api/users/delete-user', (req, res) => {
   // we must pass the whole object to delete it
-  if (localUsers.some(user => user.id === req.body.id)) {
+  if (!localUsers.some(user => user.id === req.body.id)) {
     res.json({ msg: `User with id ${req.body.id} does not exist` });
     res.end();
   } else {
