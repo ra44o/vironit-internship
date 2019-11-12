@@ -24,7 +24,12 @@ const create = request => {
     if (localUsers.some(user => user.id === request.body.id)) {
       throw new Error(`User with id ${request.body.id} exists`);
     } else {
-      localUsers.push(request.body);
+      const user = {
+        id: request.body.id,
+        name: request.body.name,
+        surname: request.body.surname
+      };
+      localUsers.push(user);
       fs.writeFile(
         'storage.json',
         JSON.stringify(localUsers),
