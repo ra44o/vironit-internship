@@ -17,6 +17,7 @@ const get = () => {
 }
 
 const create = request => {
+  // we must pass the whole object to write it
   if (!request.body.id || !request.body.name || !request.body.surname) {
     throw new Error("Bad request");
   } else {
@@ -37,6 +38,7 @@ const create = request => {
 }
 
 const update = request => {
+  // here we must pass the id and can pass name and surname or both of them
   if (!localUsers.some(user => user.id === request.body.id)) {
     throw new Error(`User with id ${request.body.id} does not exist`);
   } else {
@@ -58,6 +60,7 @@ const update = request => {
 }
 
 const del = request => {
+  // we must pass the whole object to delete it
   if (!localUsers.some(user => user.id === request.body.id)) {
     throw new Error(`User with id ${request.body.id} does not exist`);
   } else {
