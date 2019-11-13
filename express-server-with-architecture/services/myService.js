@@ -34,7 +34,9 @@ const create = request => {
         'storage.json',
         JSON.stringify(localUsers),
         err => {
-          throw new Error(err);
+          if (err) {
+            throw new Error("Faild to write file");
+          }
         }
       );
       return localUsers;
@@ -57,7 +59,9 @@ const update = request => {
       'storage.json',
       JSON.stringify(localUsers),
       err => {
-        throw new Error(err);
+        if (err) {
+          throw new Error("Faild to write file");
+        }
       }
     );
     return localUsers;
@@ -65,17 +69,20 @@ const update = request => {
 }
 
 const del = request => {
-  // we must pass the whole object to delete it
-  if (!localUsers.some(user => user.id === request.body.id)) {
-    throw new Error(`User with id ${request.body.id} does not exist`);
+  // here we must pass the id of the user to delete it
+  const passedId = parseInt(request.params.id);
+  if (!localUsers.some(user => user.id === passedId)) {
+    throw new Error(`User with id ${passedId} does not exist`);
   } else {
-    const currentUserPosition = localUsers.indexOf(request.body.user);
+    const currentUserPosition = localUsers.findIndex(user => user.id === passedId);
     localUsers.splice(currentUserPosition, 1);
     fs.writeFile(
       'storage.json',
       JSON.stringify(localUsers),
       err => {
-        throw new Error(err);
+        if (err) {
+          throw new Error("Faild to write file");
+        }
       }
     );
     return localUsers;
