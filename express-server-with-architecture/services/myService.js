@@ -16,18 +16,18 @@ const get = () => {
   return localUsers;
 }
 
-const create = request => {
+const create = requestBody => {
   // we must pass the whole object to write it
-  if (!request.body.id || !request.body.name || !request.body.surname) {
+  if (!requestBody.id || !requestBody.name || !requestBody.surname) {
     throw new Error("Bad request");
   } else {
-    if (localUsers.some(user => user.id === request.body.id)) {
-      throw new Error(`User with id ${request.body.id} exists`);
+    if (localUsers.some(user => user.id === requestBody.id)) {
+      throw new Error(`User with id ${requestBody.id} exists`);
     } else {
       const user = {
-        id: request.body.id,
-        name: request.body.name,
-        surname: request.body.surname
+        id: requestBody.id,
+        name: requestBody.name,
+        surname: requestBody.surname
       };
       localUsers.push(user);
       fs.writeFile(
@@ -35,7 +35,7 @@ const create = request => {
         JSON.stringify(localUsers),
         err => {
           if (err) {
-            throw new Error("Faild to write file");
+            throw new Error("Failed to write file");
           }
         }
       );
@@ -44,23 +44,23 @@ const create = request => {
   }
 }
 
-const update = request => {
+const update = requestBody => {
   // here we must pass the id and can pass name and surname or both of them
-  if (!localUsers.some(user => user.id === request.body.id)) {
-    throw new Error(`User with id ${request.body.id} does not exist`);
+  if (!localUsers.some(user => user.id === requestBody.id)) {
+    throw new Error(`User with id ${requestBody.id} does not exist`);
   } else {
-    const currentUser = localUsers.filter(user => user.id === request.body.id)[0];
-    if (request.body.name) {
-      currentUser.name = request.body.name;
-    } else if (request.body.surname) {
-      currentUser.surname = request.body.surname;
+    const currentUser = localUsers.filter(user => user.id === requestBody.id)[0];
+    if (requestBody.name) {
+      currentUser.name = requestBody.name;
+    } else if (requestBody.surname) {
+      currentUser.surname = requestBody.surname;
     }
     fs.writeFile(
       'storage.json',
       JSON.stringify(localUsers),
       err => {
         if (err) {
-          throw new Error("Faild to write file");
+          throw new Error("Failed to write file");
         }
       }
     );
@@ -68,9 +68,9 @@ const update = request => {
   }
 }
 
-const del = request => {
+const del = requestId => {
   // here we must pass the id of the user to delete it
-  const passedId = parseInt(request.params.id);
+  const passedId = parseInt(requestId);
   if (!localUsers.some(user => user.id === passedId)) {
     throw new Error(`User with id ${passedId} does not exist`);
   } else {
@@ -81,7 +81,7 @@ const del = request => {
       JSON.stringify(localUsers),
       err => {
         if (err) {
-          throw new Error("Faild to write file");
+          throw new Error("Failed to write file");
         }
       }
     );
