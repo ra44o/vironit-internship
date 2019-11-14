@@ -3,36 +3,36 @@ const service = require('../services/myService');
 class MyController {
   constructor() { }
 
-  getUsers(req, res) {
+  async getUsers(req, res) {
     try {
-      const result = service.get();
+      const result = await service.get();
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
     }
   }
 
-  createUser(req, res) {
+  async createUser(req, res) {
     try {
-      const result = service.create(req.body);
+      const result = await service.create(req.body);
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
     }
   }
 
-  updateUser(req, res) {
+  async updateUser(req, res) {
     try {
-      const result = service.update(req.body);
+      const result = await service.update(req.body);
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
     }
   }
 
-  deleteUser(req, res) {
+  async deleteUser(req, res) {
     try {
-      const result = service.del(req.params.id);
+      const result = await service.del(req.params.id);
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
