@@ -1,24 +1,29 @@
 const fs = require('fs');
 const path = require('path');
 
-let localUsers;
-fs.readFile(
-  path.join(__dirname, '..', 'storage.json'),
-  (err, data) => {
-    if (err) {
-      throw new Error(err);
-    }
-    localUsers = JSON.parse(data);
-  }
-);
+const User = require('../models/user');
 
-const get = () => {
+let localUsers;
+
+const initializeDB = async () => {
+  localUsers = await User.find(
+    { isActive: true },
+    err => {
+      if (err) {
+        throw new Error('Can not get users');
+      }
+    });
+}
+
+initializeDB();
+
+const get = async () => {
   return localUsers;
 }
 
-const create = requestBody => {
+const create = async requestBody => {
   // we must pass the whole object to write it
-  if (!requestBody.id || !requestBody.name || !requestBody.surname) {
+  if (!requestBody.id || !requestBody.name || !requestBody.surname || !requestBody.isActive) {
     throw new Error("Bad request");
   } else {
     if (localUsers.some(user => user.id === requestBody.id)) {
@@ -27,65 +32,74 @@ const create = requestBody => {
       const user = {
         id: requestBody.id,
         name: requestBody.name,
-        surname: requestBody.surname
+        surname: requestBody.surname,
+        isActive: requestBody.isActive
       };
       localUsers.push(user);
-      fs.writeFile(
-        'storage.json',
-        JSON.stringify(localUsers),
-        err => {
-          if (err) {
-            throw new Error("Failed to write file");
-          }
-        }
-      );
-      return localUsers;
+      const newUser = new User(user);
+      await newUser.save();
+
+      return 'User created';
     }
   }
 }
 
-const update = requestBody => {
+const update = async requestBody => {
   // here we must pass the id and can pass name and surname or both of them
   if (!localUsers.some(user => user.id === requestBody.id)) {
     throw new Error(`User with id ${requestBody.id} does not exist`);
   } else {
     const currentUser = localUsers.filter(user => user.id === requestBody.id)[0];
-    if (requestBody.name) {
+
+    if (requestBody.name && requestBody.surname) {
+
       currentUser.name = requestBody.name;
+      currentUser.surname = requestBody.surname;
+      await User.updateOne(
+        { id: currentUser.id },
+        {
+          $set: { "name": requestBody.name, "surname": requestBody.surname }
+        }
+      );
+    }
+    else if (requestBody.name) {
+      currentUser.name = requestBody.name;
+      await User.updateOne(
+        { id: currentUser.id },
+        {
+          $set: { "name": requestBody.name }
+        }
+      );
     } else if (requestBody.surname) {
       currentUser.surname = requestBody.surname;
-    }
-    fs.writeFile(
-      'storage.json',
-      JSON.stringify(localUsers),
-      err => {
-        if (err) {
-          throw new Error("Failed to write file");
+      await User.updateOne(
+        { id: currentUser.id },
+        {
+          $set: { "surname": requestBody.surname }
         }
-      }
-    );
-    return localUsers;
+      );
+    }
+
+    return 'User updated';
   }
 }
 
-const del = requestId => {
+const del = async requestId => {
   // here we must pass the id of the user to delete it
   const passedId = parseInt(requestId);
   if (!localUsers.some(user => user.id === passedId)) {
     throw new Error(`User with id ${passedId} does not exist`);
   } else {
     const currentUserPosition = localUsers.findIndex(user => user.id === passedId);
-    localUsers.splice(currentUserPosition, 1);
-    fs.writeFile(
-      'storage.json',
-      JSON.stringify(localUsers),
-      err => {
-        if (err) {
-          throw new Error("Failed to write file");
-        }
+    localUsers[currentUserPosition].isActive = false;
+    await User.updateOne(
+      { id: passedId },
+      {
+        $set: { "isActive": false }
       }
     );
-    return localUsers;
+
+    return 'User deleted';
   }
 }
 
