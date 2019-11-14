@@ -29,14 +29,13 @@ const create = async requestBody => {
     if (localUsers.some(user => user.id === requestBody.id)) {
       throw new Error(`User with id ${requestBody.id} exists`);
     } else {
-      const user = {
+      const newUser = new User({
         id: requestBody.id,
         name: requestBody.name,
         surname: requestBody.surname,
         isActive: requestBody.isActive
-      };
-      localUsers.push(user);
-      const newUser = new User(user);
+      });
+      localUsers.push(newUser);
       await newUser.save();
 
       return 'User created';
