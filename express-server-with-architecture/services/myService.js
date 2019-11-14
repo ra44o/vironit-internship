@@ -90,7 +90,7 @@ const del = async requestId => {
     throw new Error(`User with id ${passedId} does not exist`);
   } else {
     const currentUserPosition = localUsers.findIndex(user => user.id === passedId);
-    localUsers[currentUserPosition].isActive = false;
+    localUsers.splice(currentUserPosition, 1);
     await User.updateOne(
       { id: passedId },
       {
