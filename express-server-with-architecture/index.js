@@ -10,7 +10,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', router);
+app.use('/api/users', router);
 
 const start = async () => {
   try {
