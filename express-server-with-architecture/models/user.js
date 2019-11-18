@@ -16,8 +16,7 @@ const schema = new Schema(
     },
     isActive: {
       type: Boolean,
-      default: false,
-      required: true
+      default: false
     }
   },
   {
