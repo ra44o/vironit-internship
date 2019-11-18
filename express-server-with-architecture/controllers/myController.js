@@ -15,7 +15,7 @@ class MyController {
   async createUser(req, res) {
     try {
       const result = await service.create(req.body);
-      res.status(200).send(result);
+      res.status(201).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
     }
@@ -23,8 +23,8 @@ class MyController {
 
   async updateUser(req, res) {
     try {
-      const result = await service.update(req.body);
-      res.status(200).send(result);
+      const result = await service.update(req.params.id, req.body);
+      res.status(204).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
     }
@@ -33,7 +33,7 @@ class MyController {
   async deleteUser(req, res) {
     try {
       const result = await service.del(req.params.id);
-      res.status(200).send(result);
+      res.status(204).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
     }
