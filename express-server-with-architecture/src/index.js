@@ -1,4 +1,4 @@
-const router = require('./routers/myRouter');
+const { userRouter, cityRouter } = require('./routers/routers');
 const helmet = require('helmet');
 const express = require('express');
 const app = express();
@@ -10,12 +10,14 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/users', router);
+app.use('/api/users', userRouter);
+app.use('/api/cities', cityRouter);
 
 const start = async () => {
   try {
     await mongoose.connect(
-      'mongodb+srv://ra44o:rak1997@vironit-intern-ayhnq.mongodb.net/users',
+      // 'mongodb+srv://ra44o:rak1997@vironit-intern-ayhnq.mongodb.net/users',
+      'mongodb://localhost:27017/vironit',
       {
         useCreateIndex: true,
         useFindAndModify: false,

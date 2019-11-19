@@ -1,11 +1,20 @@
-const service = require('../services/myService');
+const service = require('../services/user-service');
 
-class MyController {
+class UserController {
   constructor() { }
 
-  async getUsers(req, res) {
+  async getAllUsers(req, res) {
     try {
-      const result = await service.get();
+      const result = await service.getAll();
+      res.status(200).send(result);
+    } catch (err) {
+      res.status(400).send({ msg: err.message });
+    }
+  }
+
+  async getCertainUser(req, res) {
+    try {
+      const result = await service.getOne(req.params.id);
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
@@ -40,4 +49,4 @@ class MyController {
   }
 }
 
-module.exports = MyController;
+module.exports = UserController;

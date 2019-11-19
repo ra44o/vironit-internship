@@ -2,9 +2,9 @@
   "name": "express-server-with-architecture",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon src/index.js"
   },
   "author": "Artsiom Rak",
   "license": "ISC",

@@ -1,6 +1,6 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const schema = new Schema(
+const schema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -10,13 +10,16 @@ const schema = new Schema(
       type: String,
       required: true
     },
-    isActive: {
+    isUserActive: {
       type: Boolean,
       default: true
+    },
+    cityID: {
+      type: mongoose.Types.ObjectId
     }
   },
   {
     versionKey: false
   });
 
-module.exports = model('User', schema);
+module.exports = mongoose.model('User', schema);
