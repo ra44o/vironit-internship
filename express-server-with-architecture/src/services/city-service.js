@@ -1,4 +1,6 @@
 const City = require('../models/city-model');
+const Joi = require('joi');
+const { createSchema, updateSchema } = require('../validation/city-validation');
 
 const get = async () => {
   return await City.find(
@@ -12,6 +14,12 @@ const get = async () => {
 }
 
 const create = async requestBody => {
+  Joi.validate(requestBody, createSchema, err => {
+    if (err) {
+      throw new Error(err);
+    }
+  });
+
   const newCity = new City({ ...requestBody })
   await newCity.save();
 
@@ -19,6 +27,12 @@ const create = async requestBody => {
 }
 
 const update = async (requestId, requestBody) => {
+  Joi.validate(requestBody, updateSchema, err => {
+    if (err) {
+      throw new Error(err);
+    }
+  });
+
   await City.updateOne(
     { _id: requestId },
     {
