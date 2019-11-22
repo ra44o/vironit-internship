@@ -1,7 +1,5 @@
 const User = require('../models/user-model');
 const ObjectId = require('mongoose').Types.ObjectId;
-const Joi = require('joi');
-const { createSchema, updateSchema } = require('../validation/user-validation');
 
 const getAll = async () => {
   return await User.aggregate(
@@ -59,12 +57,6 @@ const getOne = async userId => {
 }
 
 const create = async requestBody => {
-  Joi.validate(requestBody, createSchema, (err) => {
-    if (err) {
-      throw new Error(err);
-    }
-  });
-
   const newUser = new User({ ...requestBody });
   await newUser.save();
 
@@ -72,12 +64,6 @@ const create = async requestBody => {
 }
 
 const update = async (requestId, requestBody) => {
-  Joi.validate(requestBody, updateSchema, (err) => {
-    if (err) {
-      throw new Error(err);
-    }
-  });
-
   await User.updateOne(
     { _id: requestId },
     {
