@@ -14,19 +14,19 @@ const updateSchema = Joi.object().keys({
 
 const validateCityCreate = async (req, res, next) => {
   try {
-    await createSchema.validateAsync(req.body);
+    await createSchema.validate(req.body);
     next();
   } catch (err) {
-    res.status(400).send('Bad request');
+    res.status(400).send({ msg: err.message });
   }
 };
 
 const validateCityUpdate = async (req, res, next) => {
   try {
-    await updateSchema.validateAsync(req.body);
+    await updateSchema.validate(req.body);
     next();
   } catch (err) {
-    res.status(400).send('Bad request');
+    res.status(400).send({ msg: err.message });
   }
 }
 
