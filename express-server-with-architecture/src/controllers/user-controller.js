@@ -30,10 +30,19 @@ class UserController {
     }
   }
 
+  async login(req, res) {
+    try {
+      const result = await service.login(req.body.login, req.body.password);
+      res.status(200).send(result);
+    } catch (err) {
+      res.status(403).send({ msg: err.message });
+    }
+  }
+
   async updateUser(req, res) {
     try {
       const result = await service.update(req.params.id, req.body);
-      res.status(204).send(result);
+      res.status(201).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
     }
