@@ -1,5 +1,6 @@
 const User = require('../models/user-model');
 const ObjectId = require('mongoose').Types.ObjectId;
+const jwt = require('jsonwebtoken');
 
 const getAll = async () => {
   return await User.aggregate(
@@ -20,7 +21,9 @@ const getAll = async () => {
           "name": "$name",
           "surname": "$surname",
           "isUserActive": "$isUserActive",
-          "fromCity": "$cityData.cityName"
+          "fromCity": "$cityData.cityName",
+          "login": "$login",
+          "password": "$password"
         }
       }
     ]
@@ -49,7 +52,9 @@ const getOne = async userId => {
           "name": "$name",
           "surname": "$surname",
           "isUserActive": "$isUserActive",
-          "fromCity": "$cityData.cityName"
+          "fromCity": "$cityData.cityName",
+          "login": "$login",
+          "password": "$password"
         }
       }
     ]
@@ -57,10 +62,21 @@ const getOne = async userId => {
 }
 
 const create = async requestBody => {
-  const newUser = new User({ ...requestBody });
-  await newUser.save();
+  const user = new User({ ...requestBody });
+  await user.save();
+  const token = jwt.sign({ _id: user._id }, 'myapp');
 
-  return 'User created';
+  return { user, token };
+}
+
+const login = async (login, password) => {
+  const user = await User.findOne({ login });
+  if (!user) {
+    throw new Error('User does not exist');
+  }
+  const token = jwt.sign({ _id: user._id }, 'myapp');
+
+  return { token };
 }
 
 const update = async (requestId, requestBody) => {
@@ -89,6 +105,7 @@ module.exports = {
   getAll,
   getOne,
   create,
+  login,
   update,
   del
 }
