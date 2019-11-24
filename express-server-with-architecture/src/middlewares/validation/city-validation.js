@@ -12,18 +12,18 @@ const updateSchema = Joi.object().keys({
   isCityActive: Joi.boolean()
 });
 
-const validateCityCreate = (req, res, next) => {
+const validateCityCreate = async (req, res, next) => {
   try {
-    createSchema.valid(req.body);
+    await createSchema.validateAsync(req.body);
     next();
   } catch (err) {
     res.status(400).send('Bad request');
   }
 };
 
-const validateCityUpdate = (req, res, next) => {
+const validateCityUpdate = async (req, res, next) => {
   try {
-    updateSchema.valid(req.body);
+    await updateSchema.validateAsync(req.body);
     next();
   } catch (err) {
     res.status(400).send('Bad request');
