@@ -16,10 +16,17 @@ const schema = new mongoose.Schema(
     },
     cityID: {
       type: mongoose.Types.ObjectId
+    },
+    login: {
+      type: String,
+    },
+    password: {
+      type: String
     }
   },
   {
     versionKey: false
-  });
+  }
+);
 
 module.exports = mongoose.model('User', schema);
