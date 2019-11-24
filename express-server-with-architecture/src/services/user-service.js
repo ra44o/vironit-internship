@@ -1,6 +1,7 @@
 const User = require('../models/user-model');
 const ObjectId = require('mongoose').Types.ObjectId;
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const getAll = async () => {
   return await User.aggregate(
@@ -62,7 +63,10 @@ const getOne = async userId => {
 }
 
 const create = async requestBody => {
-  const user = new User({ ...requestBody });
+  requestBody.password = await bcrypt.hash(requestBody.password, 8);
+  const user = new User({
+    ...requestBody
+  });
   await user.save();
   const token = jwt.sign({ _id: user._id }, 'myapp');
 
@@ -74,12 +78,17 @@ const login = async (login, password) => {
   if (!user) {
     throw new Error('User does not exist');
   }
+  const isMatch = await bcrypt.compare(user.password, password);
+  if (!isMatch) {
+    throw new Error('Wrong password');
+  }
   const token = jwt.sign({ _id: user._id }, 'myapp');
 
   return { token };
 }
 
 const update = async (requestId, requestBody) => {
+  requestBody.password = await bcrypt.hash(requestBody.password, 8);
   await User.updateOne(
     { _id: requestId },
     {
