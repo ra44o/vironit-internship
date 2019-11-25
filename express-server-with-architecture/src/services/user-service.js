@@ -1,7 +1,7 @@
 const User = require('../models/user-model');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { generateAuthToken } = require('../middlewares/authentication/auth');
-const { comparePass } = require('../middlewares/encryption/hash');
+const bcrypt = require('bcryptjs');
 
 const getAll = async () => {
   return await User.aggregate(
@@ -24,7 +24,6 @@ const getAll = async () => {
           "isUserActive": "$isUserActive",
           "fromCity": "$cityData.cityName",
           "login": "$login",
-          "password": "$password"
         }
       }
     ]
@@ -55,14 +54,19 @@ const getOne = async userId => {
           "isUserActive": "$isUserActive",
           "fromCity": "$cityData.cityName",
           "login": "$login",
-          "password": "$password"
         }
       }
     ]
   );
 }
 
+const encryptPass = async (password) => {
+  return await bcrypt.hash(password, 8);
+};
+
 const create = async requestBody => {
+  requestBody.password = await encryptPass(requestBody.password);
+
   const user = new User({
     ...requestBody
   });
@@ -77,7 +81,7 @@ const login = async (login, password) => {
   if (!user) {
     throw new Error('User does not exist');
   }
-  const isMatch = await comparePass(password, user.password);
+  const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
     throw new Error('Wrong password');
   }
@@ -87,6 +91,9 @@ const login = async (login, password) => {
 }
 
 const update = async (requestId, requestBody) => {
+  if (requestBody.password) {
+    requestBody.password = await encryptPass(requestBody.password);
+  }
   await User.updateOne(
     { _id: requestId },
     {
