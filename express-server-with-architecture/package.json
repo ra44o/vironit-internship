@@ -9,10 +9,10 @@
   "author": "Artsiom Rak",
   "license": "ISC",
   "dependencies": {
+    "@hapi/joi": "^16.1.8",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
-    "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.10"
   },

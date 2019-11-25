@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 
 const createSchema = Joi.object().keys({
   cityName: Joi.string().alphanum().trim().required(),
@@ -14,7 +14,7 @@ const updateSchema = Joi.object().keys({
 
 const validateCityCreate = async (req, res, next) => {
   try {
-    await createSchema.validate(req.body);
+    await createSchema.validateAsync(req.body);
     next();
   } catch (err) {
     res.status(400).send({ msg: err.message });
@@ -23,7 +23,7 @@ const validateCityCreate = async (req, res, next) => {
 
 const validateCityUpdate = async (req, res, next) => {
   try {
-    await updateSchema.validate(req.body);
+    await updateSchema.validateAsync(req.body);
     next();
   } catch (err) {
     res.status(400).send({ msg: err.message });
