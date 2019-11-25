@@ -15,7 +15,7 @@ const authorize = async (req, res, next) => {
       throw new Error('Please, log in');
     }
   } catch (err) {
-    res.status(403).send({ msg: err.message });
+    res.status(401).send({ msg: err.message });
   }
 }
 

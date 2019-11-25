@@ -46,7 +46,7 @@ const validateLogin = async (req, res, next) => {
     await loginSchema.validateAsync(req.body);
     next();
   } catch (err) {
-    res.status(403).send({ msg: err.message });
+    res.status(400).send({ msg: err.message });
   }
 };
 
