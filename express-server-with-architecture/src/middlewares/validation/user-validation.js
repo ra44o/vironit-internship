@@ -37,7 +37,7 @@ const validateUserUpdate = async (req, res, next) => {
     await updateSchema.validateAsync(req.body);
     next();
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({ msg: err.message });
   }
 };
 
