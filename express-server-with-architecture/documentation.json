@@ -493,16 +493,24 @@
     },
     "city": {
       "type": "object",
+      "description": "The City object.",
+      "required": [
+        "cityName",
+        "foundationYear"
+      ],
       "properties": {
         "cityName": {
-          "type": "string"
+          "type": "string",
+          "description": "Name of the city."
         },
         "foundationYear": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "Foundation year of the city."
         },
         "isCityActive": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Default value is *true*."
         }
       }
     }
