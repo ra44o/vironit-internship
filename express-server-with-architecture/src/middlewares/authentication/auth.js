@@ -4,7 +4,7 @@ const User = require('../../models/user-model');
 const authorize = async (req, res, next) => {
   try {
     if (!req.header('Authorization')) {
-      throw new Error('Authorize token not found');
+      throw new Error('Authorization token not found');
     }
     const token = req.header('Authorization').replace('Bearer ', '');
     if (token) {
