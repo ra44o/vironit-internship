@@ -15,7 +15,9 @@ const create = async requestBody => {
   const newCity = new City({ ...requestBody })
   await newCity.save();
 
-  return 'City created';
+  return {
+    msg: 'City created'
+  };
 }
 
 const update = async (requestId, requestBody) => {
@@ -26,7 +28,9 @@ const update = async (requestId, requestBody) => {
     }
   );
 
-  return 'City updated';
+  return {
+    msg: 'City updated'
+  };
 }
 
 const del = async requestId => {
@@ -36,6 +40,10 @@ const del = async requestId => {
       $set: { "isCityActive": false }
     }
   );
+
+  return {
+    msg: 'City deleted'
+  }
 }
 
 module.exports = {
