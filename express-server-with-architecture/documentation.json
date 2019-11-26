@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Sample Express server",
-    "description": "This is a sample express server with several routes, passwords encryption, Auth0 authorization.",
+    "description": "This is a sample express server with several routes, passwords encryption, Auth0 authorization",
     "termsOfService": "https://swagger.io/terms/",
     "contact": {
       "email": "web.rak.art@gmail.com"
@@ -33,8 +33,8 @@
         "tags": [
           "user"
         ],
-        "summary": "Get all existing users.",
-        "description": "These can be done by **unauthorized** user.",
+        "summary": "Get all existing users",
+        "description": "These can be done by **unauthorized** user",
         "operationId": "getUser",
         "responses": {
           "200": {
@@ -52,8 +52,8 @@
         "tags": [
           "user"
         ],
-        "summary": "Create a new user.",
-        "description": "These can be done by **unauthorized** user.",
+        "summary": "Create a new user",
+        "description": "These can be done by **unauthorized** user",
         "operationId": "createUser",
         "produces": [
           "application/json"
@@ -89,7 +89,7 @@
             }
           },
           "400": {
-            "description": "Bad request: some of fields are not valid.",
+            "description": "Bad request: some of fields are not valid",
             "schema": {
               "type": "object",
               "properties": {
@@ -100,7 +100,7 @@
             }
           },
           "401": {
-            "description": "The user is unauthorized.",
+            "description": "The user is unauthorized",
             "schema": {
               "type": "object",
               "properties": {
@@ -118,15 +118,15 @@
         "tags": [
           "user"
         ],
-        "summary": "Get a certain user.",
-        "description": "These can be done by **unauthorized** user.",
+        "summary": "Get a certain user",
+        "description": "These can be done by **unauthorized** user",
         "operationId": "getCertainUser",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
             "required": true,
-            "description": "These must be a unique ID created by MongoDB.",
+            "description": "These must be a unique ID created by MongoDB",
             "type": "string"
           }
         ],
@@ -141,7 +141,7 @@
             }
           },
           "400": {
-            "description": "Bad request: the user's ID is not valid.",
+            "description": "Bad request: the user's ID is not valid",
             "schema": {
               "properties": {
                 "msg": {
@@ -161,7 +161,7 @@
         "tags": [
           "user"
         ],
-        "summary": "Delete a user.",
+        "summary": "Delete a user",
         "description": "These can be done only by **authorized** user",
         "operationId": "deleteUser",
         "produces": [
@@ -172,22 +172,25 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "description": "These must be a unique ID created by MongoDB.",
+            "description": "These must be a unique ID created by MongoDB",
             "type": "string"
           }
         ],
         "responses": {
           "204": {
-            "description": "User deleted.",
+            "description": "User deleted",
             "schema": {
-              "msg": {
-                "type": "string",
-                "example": "User deleted"
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "User deleted"
+                }
               }
             }
           },
           "400": {
-            "description": "Bad request: the user's ID is not valid.",
+            "description": "Bad request: the user's ID is not valid",
             "schema": {
               "type": "object",
               "properties": {
@@ -208,7 +211,7 @@
         "tags": [
           "user"
         ],
-        "summary": "Update a certain user's data.",
+        "summary": "Update a certain user's data",
         "description": "These can be done only by **authorized** user",
         "operationId": "updateUser",
         "produces": [
@@ -219,13 +222,13 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "description": "These must be a unique ID created by MongoDB.",
+            "description": "These must be a unique ID created by MongoDB",
             "type": "string"
           },
           {
             "name": "body",
             "in": "body",
-            "description": "These can be done by unauthorized user.",
+            "description": "These can be done by unauthorized user",
             "schema": {
               "$ref": "#/defenitions/user"
             }
@@ -235,14 +238,17 @@
           "201": {
             "description": "User updated",
             "schema": {
-              "msg": {
-                "type": "string",
-                "example": "User updated"
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "User updated"
+                }
               }
             }
           },
           "400": {
-            "description": "Bad request: the user's ID is not valid.",
+            "description": "Bad request: the user's ID is not valid",
             "schema": {
               "type": "object",
               "properties": {
@@ -260,8 +266,8 @@
         "tags": [
           "user"
         ],
-        "summary": "Get a unique token.",
-        "description": "These can be done by **unauthorized** user.",
+        "summary": "Get a unique token",
+        "description": "These can be done by **unauthorized** user",
         "operationId": "login",
         "produces": [
           "application/json"
@@ -287,7 +293,7 @@
         ],
         "responses": {
           "200": {
-            "description": "You are logged in.",
+            "description": "You are logged in",
             "schema": {
               "type": "object",
               "properties": {
@@ -298,7 +304,7 @@
             }
           },
           "400": {
-            "description": "Bad request: login or password is not valid.",
+            "description": "Bad request: login or password is not valid",
             "schema": {
               "type": "object",
               "properties": {
@@ -309,7 +315,7 @@
             }
           },
           "403": {
-            "description": "User with such parameters is not found.",
+            "description": "User with such parameters is not found",
             "schema": {
               "type": "object",
               "properties": {
@@ -327,8 +333,8 @@
         "tags": [
           "city"
         ],
-        "summary": "Get all existing cities.",
-        "description": "These can be done by **unauthorized** user.",
+        "summary": "Get all existing cities",
+        "description": "These can be done by **unauthorized** user",
         "operationId": "getCity",
         "responses": {
           "200": {
@@ -346,8 +352,8 @@
         "tags": [
           "city"
         ],
-        "summary": "Create a new city.",
-        "description": "These can be done by **unauthorized** user.",
+        "summary": "Create a new city",
+        "description": "These can be done by **unauthorized** user",
         "operationId": "createCity",
         "produces": [
           "application/json"
@@ -365,13 +371,19 @@
         ],
         "responses": {
           "201": {
-            "description": "City created.",
+            "description": "City created",
             "schema": {
-              "$ref": "#/defenitions/city"
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "City created"
+                }
+              }
             }
           },
           "400": {
-            "description": "Bad request: some of fields are not valid.",
+            "description": "Bad request: some of fields are not valid",
             "schema": {
               "type": "object",
               "properties": {
@@ -389,8 +401,8 @@
         "tags": [
           "city"
         ],
-        "summary": "Update a certain city's data.",
-        "description": "These can be done by **unauthorized** user.",
+        "summary": "Update a certain city's data",
+        "description": "These can be done by **unauthorized** user",
         "operationId": "updateCity",
         "produces": [
           "application/json"
@@ -400,13 +412,13 @@
             "name": "cityId",
             "in": "path",
             "required": true,
-            "description": "These must be a unique ID created by MongoDB.",
+            "description": "These must be a unique ID created by MongoDB",
             "type": "string"
           },
           {
             "name": "body",
             "in": "body",
-            "description": "These can be done by **unauthorized** user.",
+            "description": "These can be done by **unauthorized** user",
             "schema": {
               "$ref": "#/defenitions/city"
             }
@@ -414,13 +426,19 @@
         ],
         "responses": {
           "201": {
-            "description": "City updated.",
+            "description": "City updated",
             "schema": {
-              "$ref": "#/defenitions/city"
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "City updated"
+                }
+              }
             }
           },
           "400": {
-            "description": "Bad request: the city's ID is not valid.",
+            "description": "Bad request: the city's ID is not valid",
             "schema": {
               "type": "object",
               "properties": {
@@ -436,8 +454,8 @@
         "tags": [
           "city"
         ],
-        "summary": "Delete a city.",
-        "description": "These can be done by **unauthorized** user.",
+        "summary": "Delete a city",
+        "description": "These can be done by **unauthorized** user",
         "operationId": "deleteCity",
         "produces": [
           "application/json"
@@ -447,19 +465,25 @@
             "name": "cityId",
             "in": "path",
             "required": true,
-            "description": "These must be a unique ID created by MongoDB.",
+            "description": "These must be a unique ID created by MongoDB",
             "type": "string"
           }
         ],
         "responses": {
           "204": {
-            "description": "City deleted.",
+            "description": "City deleted",
             "schema": {
-              "$ref": "#/defenitions/city"
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "City deleted"
+                }
+              }
             }
           },
           "400": {
-            "description": "Bad request: the city's ID is not valid.",
+            "description": "Bad request: the city's ID is not valid",
             "schema": {
               "type": "object",
               "properties": {
@@ -475,7 +499,7 @@
   },
   "defenitions": {
     "user": {
-      "description": "The User object.",
+      "description": "The User object",
       "type": "object",
       "required": [
         "name",
@@ -486,33 +510,33 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Name of the user."
+          "description": "Name of the user"
         },
         "surname": {
           "type": "string",
-          "description": "Surname of the user."
+          "description": "Surname of the user"
         },
         "isUserActive": {
           "type": "boolean",
-          "description": "Default value is *true*."
+          "description": "Default value is *true*"
         },
         "cityID": {
           "type": "string",
-          "description": "The unique city's ID created by MongoDB."
+          "description": "The unique city's ID created by MongoDB"
         },
         "login": {
           "type": "string",
-          "description": "The unique login for each user. Must be **at least** 3 characters."
+          "description": "The unique login for each user. Must be **at least** 3 characters"
         },
         "password": {
           "type": "string",
-          "description": "Must be **at least** 3 characters."
+          "description": "Must be **at least** 3 characters"
         }
       }
     },
     "city": {
       "type": "object",
-      "description": "The City object.",
+      "description": "The City object",
       "required": [
         "cityName",
         "foundationYear"
@@ -520,16 +544,16 @@
       "properties": {
         "cityName": {
           "type": "string",
-          "description": "Name of the city."
+          "description": "Name of the city"
         },
         "foundationYear": {
           "type": "integer",
           "format": "int32",
-          "description": "Foundation year of the city."
+          "description": "Foundation year of the city"
         },
         "isCityActive": {
           "type": "boolean",
-          "description": "Default value is *true*."
+          "description": "Default value is *true*"
         }
       }
     }
