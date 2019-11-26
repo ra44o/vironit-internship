@@ -456,25 +456,38 @@
   },
   "defenitions": {
     "user": {
+      "description": "The User object.",
       "type": "object",
+      "required": [
+        "name",
+        "surname",
+        "login",
+        "password"
+      ],
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "Name of the user."
         },
         "surname": {
-          "type": "string"
+          "type": "string",
+          "description": "Surname of the user."
         },
         "isUserActive": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Default value is *true*."
         },
         "cityID": {
-          "type": "string"
+          "type": "string",
+          "description": "The unique city's ID created by MongoDB."
         },
         "login": {
-          "type": "string"
+          "type": "string",
+          "description": "The unique login for each user. Must be **at least** 3 characters."
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "description": "Must be **at least** 3 characters."
         }
       }
     },
