@@ -65,15 +65,19 @@ const encryptPass = async (password) => {
 };
 
 const create = async requestBody => {
-  requestBody.password = await encryptPass(requestBody.password);
+  try {
+    requestBody.password = await encryptPass(requestBody.password);
 
-  const user = new User({
-    ...requestBody
-  });
-  await user.save();
-  const token = generateAuthToken(user);
+    const user = new User({
+      ...requestBody
+    });
+    await user.save();
+    const token = generateAuthToken(user);
 
-  return { user, token };
+    return { user, token };
+  } catch (err) {
+    throw new Error('A user with this login already exists');
+  }
 }
 
 const login = async (login, password) => {

@@ -19,6 +19,7 @@ const schema = new mongoose.Schema(
     },
     login: {
       type: String,
+      unique: true
     },
     password: {
       type: String
