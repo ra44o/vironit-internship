@@ -13,7 +13,7 @@
     },
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "localhost:5000",
   "tags": [
     {
       "name": "user",
@@ -25,7 +25,6 @@
     }
   ],
   "schemes": [
-    "https",
     "http"
   ],
   "paths": {
@@ -150,6 +149,11 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "tags": [
           "user"
         ],
@@ -189,6 +193,11 @@
         }
       },
       "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "tags": [
           "user"
         ],
@@ -513,6 +522,14 @@
           "description": "Default value is *true*."
         }
       }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "bearerFormat": "JWT",
+      "in": "header"
     }
   }
 }
