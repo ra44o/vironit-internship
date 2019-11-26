@@ -80,6 +80,10 @@
                 },
                 "token": {
                   "type": "string"
+                },
+                "msg": {
+                  "type": "string",
+                  "example": "User created"
                 }
               }
             }
@@ -176,7 +180,10 @@
           "204": {
             "description": "User deleted.",
             "schema": {
-              "$ref": "#/defenitions/user"
+              "msg": {
+                "type": "string",
+                "example": "User deleted"
+              }
             }
           },
           "400": {
@@ -228,7 +235,10 @@
           "201": {
             "description": "User updated",
             "schema": {
-              "$ref": "#/defenitions/user"
+              "msg": {
+                "type": "string",
+                "example": "User updated"
+              }
             }
           },
           "400": {

@@ -74,7 +74,11 @@ const create = async requestBody => {
     await user.save();
     const token = generateAuthToken(user);
 
-    return { user, token };
+    return {
+      user,
+      token,
+      msg: "User created"
+    };
   } catch (err) {
     throw new Error('A user with this login already exists');
   }
@@ -105,7 +109,9 @@ const update = async (requestId, requestBody) => {
     }
   );
 
-  return 'User updated';
+  return {
+    msg: 'User updated'
+  };
 }
 
 const del = async requestId => {
@@ -116,7 +122,9 @@ const del = async requestId => {
     }
   );
 
-  return 'User deleted';
+  return {
+    msg: 'User deleted'
+  };
 }
 
 module.exports = {
