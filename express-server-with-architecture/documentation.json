@@ -16,11 +16,11 @@
   "host": "localhost:5000",
   "tags": [
     {
-      "name": "user",
+      "name": "User",
       "description": "CRUD operations with users"
     },
     {
-      "name": "city",
+      "name": "City",
       "description": "CRUD operations with cities"
     }
   ],
@@ -31,7 +31,7 @@
     "/api/users": {
       "get": {
         "tags": [
-          "user"
+          "User"
         ],
         "summary": "Get all existing users",
         "description": "These can be done by an **unauthorized** user",
@@ -42,7 +42,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/defenitions/user"
+                "$ref": "#/definitions/User"
               }
             }
           }
@@ -50,7 +50,7 @@
       },
       "post": {
         "tags": [
-          "user"
+          "User"
         ],
         "summary": "Create a new user",
         "description": "These can be done by an **unauthorized** user",
@@ -65,7 +65,7 @@
             "description": "Create a user object",
             "required": true,
             "schema": {
-              "$ref": "#/defenitions/user"
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -76,7 +76,7 @@
               "type": "object",
               "properties": {
                 "user": {
-                  "$ref": "#/defenitions/user"
+                  "$ref": "#/definitions/User"
                 },
                 "token": {
                   "type": "string"
@@ -116,7 +116,7 @@
     "/api/users/{userId}": {
       "get": {
         "tags": [
-          "user"
+          "User"
         ],
         "summary": "Get a certain user",
         "description": "These can be done by an **unauthorized** user",
@@ -136,7 +136,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/defenitions/user"
+                "$ref": "#/definitions/User"
               }
             }
           },
@@ -159,7 +159,7 @@
           }
         ],
         "tags": [
-          "user"
+          "User"
         ],
         "summary": "Delete a user",
         "description": "These can be done only by an **authorized** user",
@@ -209,7 +209,7 @@
           }
         ],
         "tags": [
-          "user"
+          "User"
         ],
         "summary": "Update a certain user's data",
         "description": "These can be done only by an **authorized** user",
@@ -230,7 +230,7 @@
             "in": "body",
             "description": "You should provide at least one key-value parameter to this object",
             "schema": {
-              "$ref": "#/defenitions/user"
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -264,7 +264,7 @@
     "/api/users/login": {
       "post": {
         "tags": [
-          "user"
+          "User"
         ],
         "summary": "Get a unique token",
         "description": "These can be done by an **unauthorized** user",
@@ -331,7 +331,7 @@
     "/api/cities": {
       "get": {
         "tags": [
-          "city"
+          "City"
         ],
         "summary": "Get all existing cities",
         "description": "These can be done by an **unauthorized** user",
@@ -342,7 +342,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/defenitions/city"
+                "$ref": "#/definitions/City"
               }
             }
           }
@@ -350,7 +350,7 @@
       },
       "post": {
         "tags": [
-          "city"
+          "City"
         ],
         "summary": "Create a new city",
         "description": "These can be done by an **unauthorized** user",
@@ -365,7 +365,7 @@
             "required": true,
             "description": "Create a city object",
             "schema": {
-              "$ref": "#/defenitions/city"
+              "$ref": "#/definitions/City"
             }
           }
         ],
@@ -399,7 +399,7 @@
     "/api/cities/{cityId}": {
       "put": {
         "tags": [
-          "city"
+          "City"
         ],
         "summary": "Update a certain city's data",
         "description": "These can be done by an **unauthorized** user",
@@ -420,7 +420,7 @@
             "in": "body",
             "description": "You should provide at least one key-value parameter to this object",
             "schema": {
-              "$ref": "#/defenitions/city"
+              "$ref": "#/definitions/City"
             }
           }
         ],
@@ -452,7 +452,7 @@
       },
       "delete": {
         "tags": [
-          "city"
+          "City"
         ],
         "summary": "Delete a city",
         "description": "These can be done by an **unauthorized** user",
@@ -497,8 +497,8 @@
       }
     }
   },
-  "defenitions": {
-    "user": {
+  "definitions": {
+    "User": {
       "description": "The User object",
       "type": "object",
       "required": [
@@ -518,7 +518,7 @@
         },
         "isUserActive": {
           "type": "boolean",
-          "description": "Default value is *true*"
+          "description": "Default value is `true`"
         },
         "cityID": {
           "type": "string",
@@ -534,7 +534,7 @@
         }
       }
     },
-    "city": {
+    "City": {
       "type": "object",
       "description": "The City object",
       "required": [
@@ -553,7 +553,7 @@
         },
         "isCityActive": {
           "type": "boolean",
-          "description": "Default value is *true*"
+          "description": "Default value is `true`"
         }
       }
     }
@@ -562,7 +562,6 @@
     "Bearer": {
       "type": "apiKey",
       "name": "Authorization",
-      "bearerFormat": "JWT",
       "in": "header"
     }
   }
