@@ -6,7 +6,7 @@ const { validateUserCreate, validateUserUpdate, validateLogin } = require('../mi
 const { authorize } = require('../middlewares/authentication/auth');
 
 router.get('/', controller.getAllUsers);
-router.get('/:id', controller.getCertainUser);
+router.get('/:login', controller.getCertainUser);
 router.post('/', validateUserCreate, controller.createUser);
 router.post('/login', validateLogin, controller.login);
 router.put('/:id', authorize, validateUserUpdate, controller.updateUser);

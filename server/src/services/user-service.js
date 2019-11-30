@@ -30,11 +30,11 @@ const getAll = async () => {
   );
 }
 
-const getOne = async userId => {
+const getOne = async userLogin => {
   return await User.aggregate(
     [
       {
-        $match: { _id: ObjectId(userId) }
+        $match: { "login": userLogin }
       },
       {
         $lookup: {

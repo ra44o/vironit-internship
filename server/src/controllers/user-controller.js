@@ -14,7 +14,7 @@ class UserController {
 
   async getCertainUser(req, res) {
     try {
-      const result = await service.getOne(req.params.id);
+      const result = await service.getOne(req.params.login);
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
