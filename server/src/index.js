@@ -19,8 +19,8 @@ app.use('/api/cities', cityRouter);
 const start = async () => {
   try {
     await mongoose.connect(
-      // 'mongodb+srv://ra44o:rak1997@vironit-intern-ayhnq.mongodb.net/users',
-      'mongodb://localhost:27017/vironit',
+      // process.env.REMOTE_MONGODB,
+      process.env.LOCAL_MONGODB,
       {
         useCreateIndex: true,
         useFindAndModify: false,
