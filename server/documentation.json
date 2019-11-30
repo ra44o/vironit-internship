@@ -113,7 +113,7 @@
         }
       }
     },
-    "/api/users/{userId}": {
+    "/api/users/{userLogin}": {
       "get": {
         "tags": [
           "User"
@@ -151,7 +151,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/api/users/{userId}": {
       "delete": {
         "security": [
           {
