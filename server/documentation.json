@@ -42,7 +42,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/definitions/ResponseUser"
               }
             }
           }
@@ -123,10 +123,10 @@
         "operationId": "getCertainUser",
         "parameters": [
           {
-            "name": "userId",
+            "name": "userLogin",
             "in": "path",
             "required": true,
-            "description": "This must be a unique ID created by MongoDB",
+            "description": "This must be a user's login",
             "type": "string"
           }
         ],
@@ -136,7 +136,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/definitions/ResponseUser"
               }
             }
           },
@@ -499,7 +499,7 @@
   },
   "definitions": {
     "User": {
-      "description": "The User object",
+      "description": "User model for creating user object",
       "type": "object",
       "required": [
         "name",
@@ -536,7 +536,7 @@
     },
     "City": {
       "type": "object",
-      "description": "The City object",
+      "description": "City model for creating city object",
       "required": [
         "cityName",
         "foundationYear"
@@ -554,6 +554,27 @@
         "isCityActive": {
           "type": "boolean",
           "description": "Default value is `true`"
+        }
+      }
+    },
+    "ResponseUser": {
+      "type": "object",
+      "description": "User model for responding to GET, PUT and DELETE operations",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "fromCity": {
+          "type": "string"
+        },
+        "login": {
+          "type": "string"
+        },
+        "isUserActive": {
+          "type": "boolean"
         }
       }
     }
