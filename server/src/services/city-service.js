@@ -37,7 +37,7 @@ const del = async requestId => {
   await City.updateOne(
     { _id: requestId },
     {
-      $set: { "isCityActive": false }
+      $set: { "is_city__active": false }
     }
   );
 

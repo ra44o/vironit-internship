@@ -2,15 +2,15 @@ const { Schema, model } = require('mongoose');
 
 const schema = new Schema(
   {
-    cityName: {
+    city_name: {
       type: String,
       required: true
     },
-    foundationYear: {
+    foundation_year: {
       type: Number,
       required: true
     },
-    isCityActive: {
+    is_city_active: {
       type: Boolean,
       default: true
     }
