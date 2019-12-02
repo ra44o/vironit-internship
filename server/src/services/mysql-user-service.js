@@ -6,7 +6,7 @@ const getBooleanInsteadOfNumber = arr => {
   return arr.map(user => {
     return {
       ...user,
-      is_user_active: user.is_user_active === 1 ? true : false
+      is_user_active: Boolean(user.is_user_active)
     };
   });
 }
