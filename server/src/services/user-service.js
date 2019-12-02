@@ -21,7 +21,7 @@ const getAll = async () => {
           "name": "$name",
           "surname": "$surname",
           "is_user_active": "$is_user_active",
-          "fromCity": "$cityData.cityName",
+          "fromCity": "$cityData.city_name",
           "login": "$login",
         }
       }
@@ -51,7 +51,7 @@ const getOne = async userLogin => {
           "name": "$name",
           "surname": "$surname",
           "is_user_active": "$is_user_active",
-          "fromCity": "$cityData.cityName",
+          "fromCity": "$cityData.city_name",
           "login": "$login",
         }
       }
