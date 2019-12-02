@@ -10,11 +10,11 @@ const schema = new mongoose.Schema(
       type: String,
       required: true
     },
-    isUserActive: {
+    is_user_active: {
       type: Boolean,
       default: true
     },
-    cityID: {
+    city_id: {
       type: mongoose.Types.ObjectId
     },
     login: {

@@ -1,5 +1,4 @@
 const User = require('../models/user-model');
-const ObjectId = require('mongoose').Types.ObjectId;
 const { generateAuthToken } = require('../middlewares/authentication/auth');
 const bcrypt = require('bcryptjs');
 
@@ -9,7 +8,7 @@ const getAll = async () => {
       {
         $lookup: {
           from: "cities",
-          localField: "cityID",
+          localField: "city_id",
           foreignField: "_id",
           as: "cityData"
         }
@@ -21,7 +20,7 @@ const getAll = async () => {
         $project: {
           "name": "$name",
           "surname": "$surname",
-          "isUserActive": "$isUserActive",
+          "is_user_active": "$is_user_active",
           "fromCity": "$cityData.cityName",
           "login": "$login",
         }
@@ -39,7 +38,7 @@ const getOne = async userLogin => {
       {
         $lookup: {
           from: "cities",
-          localField: "cityID",
+          localField: "city_id",
           foreignField: "_id",
           as: "cityData"
         }
@@ -51,7 +50,7 @@ const getOne = async userLogin => {
         $project: {
           "name": "$name",
           "surname": "$surname",
-          "isUserActive": "$isUserActive",
+          "is_user_active": "$is_user_active",
           "fromCity": "$cityData.cityName",
           "login": "$login",
         }

@@ -3,8 +3,8 @@ const Joi = require('@hapi/joi');
 const createSchema = Joi.object({
   name: Joi.string().trim().required(),
   surname: Joi.string().alphanum().trim().required(),
-  isActive: Joi.boolean().falsy(''),
-  cityID: Joi.string().trim(),
+  is_user_active: Joi.boolean().falsy(''),
+  city_id: Joi.trim(),
   login: Joi.string().min(3),
   password: Joi.string().min(3)
 });
@@ -12,8 +12,8 @@ const createSchema = Joi.object({
 const updateSchema = Joi.object({
   name: Joi.string().trim(),
   surname: Joi.string().alphanum().trim(),
-  isActive: Joi.boolean().falsy(''),
-  cityID: Joi.string().trim(),
+  is_user_active: Joi.boolean().falsy(''),
+  city_id: Joi.trim(),
   login: Joi.string().min(3),
   password: Joi.string().min(3)
 });
