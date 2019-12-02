@@ -4,7 +4,6 @@ const createSchema = Joi.object({
   name: Joi.string().trim().required(),
   surname: Joi.string().alphanum().trim().required(),
   is_user_active: Joi.boolean().falsy(''),
-  city_id: Joi.trim(),
   login: Joi.string().min(3),
   password: Joi.string().min(3)
 });
@@ -13,7 +12,6 @@ const updateSchema = Joi.object({
   name: Joi.string().trim(),
   surname: Joi.string().alphanum().trim(),
   is_user_active: Joi.boolean().falsy(''),
-  city_id: Joi.trim(),
   login: Joi.string().min(3),
   password: Joi.string().min(3)
 });
