@@ -1,4 +1,5 @@
-const service = require('../services/user-service');
+// const service = require('../services/user-service');
+const service = require('../services/mysql-user-service');
 
 class UserController {
   constructor() { }
