@@ -4,13 +4,15 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 const swaggerDocument = require('../documentation.json');
 
 const PORT = process.env.PORT || 8000;
 
-app.use(helmet());
+// app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { customJs: '/custom.js' }));
 app.use('/api/users', userRouter);
