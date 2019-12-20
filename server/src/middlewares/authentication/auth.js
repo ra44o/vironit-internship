@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../../models/user-model');
+const { secret } = require('../../../config/jwt.model').jwt;
+const { refreshTokens } = require('./authHelper');
 
 const authorize = async (req, res, next) => {
   try {
@@ -8,8 +10,8 @@ const authorize = async (req, res, next) => {
     }
     const token = req.header('Authorization').replace('Bearer ', '');
     if (token) {
-      const decodedUser = jwt.verify(token, 'myapp');
-      const dbUser = await User.findOne({ _id: decodedUser._id });
+      const decodedUser = jwt.verify(token, secret);
+      const dbUser = await User.findOne({ _id: decodedUser.userId });
       if (!dbUser) {
         throw new Error('User not found');
       }
@@ -22,11 +24,16 @@ const authorize = async (req, res, next) => {
   }
 }
 
-const generateAuthToken = user => {
-  return jwt.sign({ _id: user._id }, 'myapp');
+const generateAuthTokens = async (userId) => {
+  return await refreshTokens(userId);
 }
+
+const verifyRefreshToken = token => {
+  return jwt.verify(token, secret);
+};
 
 module.exports = {
   authorize,
-  generateAuthToken
+  generateAuthTokens,
+  verifyRefreshToken
 };
