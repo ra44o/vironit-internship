@@ -1,10 +1,15 @@
 const User = require('../models/user-model');
-const { generateAuthToken } = require('../middlewares/authentication/auth');
+const { generateAuthTokens, verifyRefreshToken } = require('../middlewares/authentication/auth');
 const bcrypt = require('bcryptjs');
+const ObjectId = require('mongoose').Types.ObjectId;
+const Token = require('../models/token-model');
 
 const getAll = async () => {
   return await User.aggregate(
     [
+      {
+        $match: { "is_user_active": true }
+      },
       {
         $lookup: {
           from: "cities",
@@ -29,11 +34,11 @@ const getAll = async () => {
   );
 }
 
-const getOne = async userLogin => {
+const getOne = async userId => {
   return await User.aggregate(
     [
       {
-        $match: { "login": userLogin }
+        $match: { _id: ObjectId(userId) }
       },
       {
         $lookup: {
@@ -71,11 +76,19 @@ const create = async requestBody => {
       ...requestBody
     });
     await user.save();
-    const token = generateAuthToken(user);
+    const tokens = await generateAuthTokens(user._id);
 
     return {
       user,
-      token,
+      accessToken: {
+        token: tokens.accessToken.token,
+        expiresIn: tokens.accessToken.expiresIn
+      },
+      refreshToken: {
+        token: tokens.refreshToken.token,
+        expiresIn: tokens.refreshToken.expiresIn
+      },
+      expiresIn: process.env.TOKEN_EXPIRATION_TIME,
       msg: "User created"
     };
   } catch (err) {
@@ -92,10 +105,34 @@ const login = async (login, password) => {
   if (!isMatch) {
     throw new Error('Wrong password');
   }
-  const token = generateAuthToken(user);
 
-  return { token };
+  return await generateAuthTokens(user._id);
 }
+
+const refresh = async (refreshToken) => {
+  let decodedTokenData;
+  try {
+    decodedTokenData = verifyRefreshToken(refreshToken);
+    if (decodedTokenData.type !== 'refresh') {
+      throw new Error('Invalid type of the token');
+    }
+  } catch (err) {
+    if (err instanceof jwt.TokenExpiredError) {
+      throw new Error('Refresh token expired');
+    } else if (err instanceof jwt.JsonWebTokenError) {
+      throw new Error('Invalid token');
+    } else {
+      throw new Error(err);
+    }
+  }
+
+  const tokenData = await Token.findOne({ tokenId: decodedTokenData.id });
+  if (!tokenData) {
+    throw new Error('There is no such token');
+  }
+
+  return await generateAuthTokens(tokenData.userId);
+};
 
 const update = async (requestId, requestBody) => {
   if (requestBody.password) {
@@ -117,7 +154,7 @@ const del = async requestId => {
   await User.updateOne(
     { _id: requestId },
     {
-      $set: { "isUserActive": false }
+      $set: { "is_user_active": false }
     }
   );
 
@@ -131,6 +168,7 @@ module.exports = {
   getOne,
   create,
   login,
+  refresh,
   update,
   del
 }
