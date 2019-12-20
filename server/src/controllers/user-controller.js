@@ -40,6 +40,16 @@ class UserController {
     }
   }
 
+  async refresh(req, res) {
+    try {
+      const result = await service.refresh(req.body.refreshToken);
+      res.status(200).send(result);
+    } catch (err) {
+      // res.status(403).send({ msg: err.message, err: err });
+      res.status(403).send({ msg: err.message });
+    }
+  }
+
   async updateUser(req, res) {
     try {
       const result = await service.update(req.params.id, req.body);
@@ -52,7 +62,7 @@ class UserController {
   async deleteUser(req, res) {
     try {
       const result = await service.del(req.params.id);
-      res.status(204).send(result);
+      res.status(200).send(result);
     } catch (err) {
       res.status(400).send({ msg: err.message });
     }
