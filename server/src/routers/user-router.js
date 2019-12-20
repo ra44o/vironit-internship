@@ -9,7 +9,10 @@ router.get('/', controller.getAllUsers);
 router.get('/:login', controller.getCertainUser);
 router.post('/', validateUserCreate, controller.createUser);
 router.post('/login', validateLogin, controller.login);
+router.post('/refresh', controller.refresh); // дописать сюда метод контроллера, который будет выдавать нам новые токены
 router.put('/:id', authorize, validateUserUpdate, controller.updateUser);
-router.delete('/:id', authorize, controller.deleteUser);
+// router.delete('/:id', authorize, controller.deleteUser);
+router.put('/:id', controller.updateUser);
+router.delete('/:id', controller.deleteUser);
 
 module.exports = router;
