@@ -1,0 +1,23 @@
+h2 {
+  margin: 10px;
+}
+
+.user-item {
+  position: relative;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.user-link {
+  color: inherit;
+  text-decoration: none;
+  background-color: lightskyblue;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.user-link:hover > span {
+  color: #ffffff;
+}

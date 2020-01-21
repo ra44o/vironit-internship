@@ -1,0 +1,15 @@
+<div class="details-wrapper" *ngIf="detailsUser">
+  <div class="content-wrapper">
+    <p class="content-wrapper__item">Name:
+      <input [(ngModel)]="detailsUser.name" type="text" value="{{detailsUser.name}}" placeholder="Name">
+    </p>
+    <p class="content-wrapper__item">Surname: {{detailsUser.surname}}</p>
+    <p class="content-wrapper__item">City: {{detailsUser.fromCity}}</p>
+    <p class="content-wrapper__item">Active: {{detailsUser.is_user_active ? 'Yes' : 'No'}}</p>
+    <p class="content-wrapper__item">Login: {{detailsUser.login}}</p>
+  </div>
+  <div class="buttons">
+    <button class="btn btn-back" (click)="goBack()">Back</button>
+<!--    <button class="btn"></button>-->
+  </div>
+</div>

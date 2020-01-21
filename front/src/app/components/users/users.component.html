@@ -1,0 +1,13 @@
+<div>
+  <h2>Users</h2>
+  <ul>
+    <li class="user-item" *ngFor="let u of users" (click)="selectUser(u)">
+      <a class="user-link" routerLink="{{u._id}}" [class.selected-user]="u === selectedUser">
+        <span>Name: {{u.name}}</span>
+        <br>
+        <span>Surname: {{u.surname}}</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<!--<app-user-details [detailsUser]="selectedUser"></app-user-details>-->
