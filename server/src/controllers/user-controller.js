@@ -36,7 +36,7 @@ class UserController {
       const result = await service.login(req.body.login, req.body.password);
       res.status(200).send(result);
     } catch (err) {
-      res.status(403).send({ msg: err.message });
+      res.status(401).send({ msg: err.message });
     }
   }
 
