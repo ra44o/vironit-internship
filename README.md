@@ -1,1 +1,1 @@
-# vironit-intern
+# Frontend part of the application "Social Network"
