@@ -1,0 +1,28 @@
+.details-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card {
+  width: 30%;
+}
+
+.form {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-password-wrapper {
+  display: flex;
+}
+
+.buttons-wrapper {
+  display: flex;
+}
+
+.btn-save {
+  margin: 0 1.5rem 0 auto;
+}

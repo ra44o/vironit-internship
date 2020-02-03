@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header {
+  margin: 0 auto 2rem auto;
+  padding-top: 2rem;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.create-user-button {
+  position: absolute;
+  font-size: 2.3rem;
+  right: 3rem;
+  bottom: 3rem;
+}
+
+.width-50-percents {
+  width: 50%;
+}
+
+.margin-0-auto {
+  margin: 0 auto;
+}
+
+mat-card-header {
+  display: flex;
+}
+
+.btn-close {
+  margin-left: auto;
+}
+
+.error-header {
+  font-weight: 400;
+  margin: 1rem 0;
+  color: #ff0000;
+}
+
+.buttons-wrapper {
+  display: flex;
+}
+
+.buttons-wrapper__item {
+  margin-right: 1.5rem;
+  margin-left: auto;
+}
+
+.create-user-card {
+  margin: 2rem auto;
+}
+
+.create-user-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  width: fit-content;
+}
+
+.reset-btn {
+  margin: 0 1.5rem 0 auto;
+}
+
+.login-header {
+  margin: 0 auto;
+}

@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.content-wrapper {
+  width: 60%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.content-wrapper__header {
+  display: flex;
+  justify-content: space-between;
+  padding: .7rem 1rem;
+  background-color: #3f51b5;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.header {
+  color: #ffffff;
+}
+
+.content-wrapper__main {
+  display: flex;
+}
+
+.menu {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu__item {
+  padding: .5rem 1rem;
+}
+
+.router-content {
+  width: 70%;
+  height: 100%;
+}

@@ -1,0 +1,8 @@
+<div class="container">
+  <app-users
+    [users]="users"
+    [cities]="cities"
+    (created)="createUser($event)"
+    (deleted)="deleteUser($event)"
+  ></app-users>
+</div>

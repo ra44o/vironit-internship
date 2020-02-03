@@ -1,0 +1,133 @@
+<div class="details-wrapper" *ngIf="detailsUser$ | async">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>User details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form
+        [formGroup]="form"
+        class="form"
+        (ngSubmit)="updateUser(form.value)">
+
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            id="user-name"
+            formControlName="name"
+            placeholder="Name"
+            value="{{(detailsUser$ | async).name}}">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            id="user-surname"
+            formControlName="surname"
+            placeholder="Surname"
+            value="{{ (detailsUser$ | async).surname }}">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select formControlName="city_id" id="from-city">
+            <mat-option
+              value=""
+              selected
+            >Select a city
+            </mat-option>
+            <mat-option
+              *ngFor="let city of cities$ | async"
+              value="{{city._id}}"
+            >{{city.city_name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('city_id').touched && form.get('city_id').pristine">Please select a city</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+
+          <input
+            matInput
+            formControlName="login"
+            id="user-login"
+            placeholder="Login"
+            value="{{(detailsUser$ | async).login}}"
+          >
+
+          <mat-error *ngIf="form.controls['login'].hasError('minlength')">
+            Login must be at least {{form.get('login').errors.minlength.requiredLength}} characters:
+            now it equals {{form.get('login').errors.minlength.actualLength}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <div class="input-password-wrapper">
+            <input
+              matInput
+              [type]="inputPasswordType"
+              type="text"
+              formControlName="password"
+              placeholder="Password"
+            >
+            <mat-checkbox
+              mat-raised-button
+              color="primary"
+              type="checkbox"
+              (click)="changePasswordType()"
+            ></mat-checkbox>
+          </div>
+
+          <mat-error *ngIf="form.controls['password'].hasError('minlength')">
+            Password must be at least {{form.get('password').errors.minlength.requiredLength}} characters:
+            now it equals {{form.get('password').errors.minlength.actualLength}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <div class="input-password-wrapper">
+            <input
+              matInput
+              [type]="inputPasswordRepeatType"
+              formControlName="password_repeat"
+              placeholder="Password repeat"
+            >
+            <mat-checkbox
+              mat-raised-button
+              color="primary"
+              type="checkbox"
+              (click)="changePasswordRepeatType()"
+            ></mat-checkbox>
+          </div>
+          <mat-error *ngIf="form.controls['password'].value !== form.controls['password_repeat'].value">
+            Passwords must be the same
+          </mat-error>
+          <mat-error *ngIf="form.controls['password_repeat'].hasError('minlength')">
+            Password must be at least {{form.get('password_repeat').errors.minlength.requiredLength}} characters:
+            now it equals {{form.get('password_repeat').errors.minlength.actualLength}}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="buttons-wrapper">
+          <button
+            class="btn-save"
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="form.pristine || form.get('city_id').pristine || (form.controls['password'].value !== form.controls['password_repeat'].value)"
+          >Save
+          </button>
+          <button
+            (click)="goBack()"
+            mat-raised-button
+          >Back</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div>
+  <pre>{{form.controls['password'].value === form.controls['password_repeat'].value}}</pre>
+  <pre>{{form.controls['password_repeat'].value}}</pre>
+</div>

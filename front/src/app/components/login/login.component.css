@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  width: 50%;
+  margin: 2rem auto 0 auto;
+}
+
+.card-header {
+  font-size: 1.5rem;
+}
+
+.mat-error-handle {
+  margin: 0.625rem 0 0 0;
+  font-size: 0.75rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-submit {
+  width: fit-content;
+  margin-left: auto;
+}
+
+.login-header {
+  margin: 2rem auto 0 auto;
+}
