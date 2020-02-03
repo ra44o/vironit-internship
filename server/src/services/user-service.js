@@ -23,6 +23,7 @@ const getAll = async () => {
       },
       {
         $project: {
+          "_id": "$_id",
           "name": "$name",
           "surname": "$surname",
           "is_user_active": "$is_user_active",
@@ -53,6 +54,7 @@ const getOne = async userId => {
       },
       {
         $project: {
+          "_id": "$_id",
           "name": "$name",
           "surname": "$surname",
           "is_user_active": "$is_user_active",
@@ -97,7 +99,7 @@ const create = async requestBody => {
 }
 
 const login = async (login, password) => {
-  const user = await User.findOne({ login });
+  let user = await User.findOne({ login });
   if (!user) {
     throw new Error('User does not exist');
   }
@@ -106,7 +108,39 @@ const login = async (login, password) => {
     throw new Error('Wrong password');
   }
 
-  return await generateAuthTokens(user._id);
+  user = await User.aggregate(
+    [
+      {
+        $match: { "login": login }
+      },
+      {
+        $lookup: {
+          from: "cities",
+          localField: "city_id",
+          foreignField: "_id",
+          as: "cityData"
+        }
+      },
+      {
+        $unwind: "$cityData"
+      },
+      {
+        $project: {
+          "_id": "$_id",
+          "name": "$name",
+          "surname": "$surname",
+          "is_user_active": "$is_user_active",
+          "fromCity": "$cityData.city_name",
+          "login": "$login",
+        }
+      }
+    ]
+  );
+
+  return {
+    user,
+    ...await generateAuthTokens(user[0]._id)
+  };
 }
 
 const refresh = async (refreshToken) => {
@@ -117,13 +151,7 @@ const refresh = async (refreshToken) => {
       throw new Error('Invalid type of the token');
     }
   } catch (err) {
-    if (err instanceof jwt.TokenExpiredError) {
-      throw new Error('Refresh token expired');
-    } else if (err instanceof jwt.JsonWebTokenError) {
-      throw new Error('Invalid token');
-    } else {
-      throw new Error(err);
-    }
+    throw new Error(err);
   }
 
   const tokenData = await Token.findOne({ tokenId: decodedTokenData.id });
