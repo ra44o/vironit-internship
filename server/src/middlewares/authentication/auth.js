@@ -10,11 +10,17 @@ const authorize = async (req, res, next) => {
     }
     const token = req.header('Authorization').replace('Bearer ', '');
     if (token) {
-      const decodedUser = jwt.verify(token, secret);
+      let decodedUser;
+      try {
+        decodedUser = jwt.verify(token, secret);
+      } catch (error) {
+        throw new Error(`Token ${token} has expired`);
+      }
       const dbUser = await User.findOne({ _id: decodedUser.userId });
       if (!dbUser) {
         throw new Error('User not found');
       }
+      req.params.id = decodedUser.userId;
       next();
     } else {
       throw new Error('Please, log in');
