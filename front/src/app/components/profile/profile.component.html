@@ -1,0 +1,151 @@
+<div class="container">
+<!--  <div>-->
+<!--    <pre>{{user | json}}</pre>-->
+<!--  </div>-->
+  <section
+    class="info-edit"
+    (mouseenter)="buttonEditVisible = true"
+    (mouseleave)="buttonEditVisible = false"
+  >
+    <div
+      class="user-info"
+    >
+      <h3 class="user-info__header">{{user.name + ' ' + user.surname}}</h3>
+      <p>Name: {{user.name}}</p>
+      <p>Surname: {{user.surname}}</p>
+      <p>City: {{user.fromCity}}</p>
+    </div>
+    <div class="button-wrapper">
+      <button
+        class="edit-button"
+        mat-raised-button
+        [class.visible]="buttonEditVisible"
+        (click)="editFormVisible = true"
+        [disabled]="editFormVisible"
+      >Edit</button>
+    </div>
+  </section>
+
+  <section class="edit-form-wrapper" *ngIf="editFormVisible">
+    <form
+      [formGroup]="form"
+      class="form"
+      (ngSubmit)="updateUser(form.value)"
+    >
+
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          id="user-name"
+          formControlName="name"
+          placeholder="Name"
+          value="{{user.name}}">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          id="user-surname"
+          formControlName="surname"
+          placeholder="Surname"
+          value="{{user.surname}}">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select formControlName="city_id" id="from-city">
+          <mat-option
+            value=""
+            selected
+          >Select a city
+          </mat-option>
+          <mat-option
+            *ngFor="let city of cities"
+            value="{{city._id}}"
+          >{{city.city_name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('city_id').touched && form.get('city_id').pristine">Please select a city</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+
+        <input
+          matInput
+          formControlName="login"
+          id="user-login"
+          placeholder="Login"
+          value="{{user.login}}"
+        >
+
+        <mat-error *ngIf="form.controls['login'].hasError('minlength')">
+          Login must be at least {{form.get('login').errors.minlength.requiredLength}} characters:
+          now it equals {{form.get('login').errors.minlength.actualLength}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <div class="input-password-wrapper">
+          <input
+            matInput
+            [type]="inputPasswordType"
+            type="text"
+            formControlName="password"
+            placeholder="Password"
+          >
+          <mat-checkbox
+            mat-raised-button
+            color="primary"
+            type="checkbox"
+            (click)="changePasswordType()"
+          ></mat-checkbox>
+        </div>
+
+        <mat-error *ngIf="form.controls['password'].hasError('minlength')">
+          Password must be at least {{form.get('password').errors.minlength.requiredLength}} characters:
+          now it equals {{form.get('password').errors.minlength.actualLength}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <div class="input-password-wrapper">
+          <input
+            matInput
+            [type]="inputPasswordRepeatType"
+            formControlName="password_repeat"
+            placeholder="Password repeat"
+          >
+          <mat-checkbox
+            mat-raised-button
+            color="primary"
+            type="checkbox"
+            (click)="changePasswordRepeatType()"
+          ></mat-checkbox>
+        </div>
+        <mat-error *ngIf="form.controls['password'].value !== form.controls['password_repeat'].value">
+          Passwords must be the same
+        </mat-error>
+        <mat-error *ngIf="form.controls['password_repeat'].hasError('minlength')">
+          Password must be at least {{form.get('password_repeat').errors.minlength.requiredLength}} characters:
+          now it equals {{form.get('password_repeat').errors.minlength.actualLength}}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="buttons-wrapper">
+        <button
+          class="btn-save"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.pristine || form.get('city_id').pristine || (form.controls['password'].value !== form.controls['password_repeat'].value)"
+        >Save
+        </button>
+        <button
+          (click)="editFormVisible = false"
+          mat-raised-button
+        >Cancel</button>
+      </div>
+    </form>
+  </section>
+</div>

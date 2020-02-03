@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { UserServiceService } from '../../services/user-service.service';
-import { IUser } from '../../interfaces/interfaces';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {IUser, ICity} from '../../interfaces/interface';
 
 @Component({
   selector: 'app-users',
@@ -9,20 +9,45 @@ import { IUser } from '../../interfaces/interfaces';
 })
 export class UsersComponent implements OnInit {
 
-  users: IUser[];
-  selectedUser: IUser;
+  @Input() users: IUser[];
+  @Input() cities: ICity[];
 
-  constructor(private userService: UserServiceService) { }
+  @Output() created: EventEmitter<object> = new EventEmitter<object>();
+  @Output() deleted: EventEmitter<string> = new EventEmitter<string>();
+
+  form: FormGroup;
+  formFlag = false;
+
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
-    this.getUsers();
+    this.createForm();
   }
 
-  getUsers(): void {
-    this.users = this.userService.getUsers();
+  createForm(): void {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      city_id: ['', Validators.required],
+      login: ['', [Validators.required, Validators.minLength(3)]],
+      password: [null, [Validators.required, Validators.minLength(3)]]
+    });
   }
 
-  selectUser(user): void {
-    this.selectedUser = user;
+  createUser(body: object): void {
+    this.created.emit(body);
+    this.formFlag = false;
+    this.form.reset();
+  }
+
+  deleteUser(id: string) {
+    this.deleted.emit(id);
+  }
+
+  closeCreateNewUserForm() {
+    this.formFlag = false;
+    this.form.reset();
   }
 }

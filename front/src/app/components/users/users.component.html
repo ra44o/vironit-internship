@@ -1,13 +1,158 @@
-<div>
-  <h2>Users</h2>
-  <ul>
-    <li class="user-item" *ngFor="let u of users" (click)="selectUser(u)">
-      <a class="user-link" routerLink="{{u._id}}" [class.selected-user]="u === selectedUser">
-        <span>Name: {{u.name}}</span>
-        <br>
-        <span>Surname: {{u.surname}}</span>
-      </a>
-    </li>
-  </ul>
+<div class="content-wrapper">
+
+  <mat-card
+    class="card"
+    *ngFor="let user of users"
+  >
+    <img
+      src="https://via.placeholder.com/150?Text={{user.name}} {{user.surname}}"
+      alt="Profile photo of {{user.name}} {{user.surname}}"
+    >
+    <mat-card-content class="list-buttons">
+      <mat-list class="list">
+        <mat-list-item>Name: {{user.name}}</mat-list-item>
+        <mat-list-item>Surname: {{user.surname}}</mat-list-item>
+<!--        <mat-list-item>Login: {{user.login}}</mat-list-item>-->
+<!--        <mat-list-item>Active: {{user.is_user_active ? 'Yes' : 'No'}}</mat-list-item>-->
+<!--        <mat-list-item>City: {{user.fromCity}}</mat-list-item>-->
+      </mat-list>
+      <mat-card-actions class="buttons">
+        <a
+          class="see-profile-button"
+          mat-raised-button
+        >See profile</a>
+        <button
+          mat-raised-button
+          color="primary"
+        >Add friend</button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+
+<!--  <mat-accordion>-->
+<!--    <mat-expansion-panel-->
+<!--      *ngFor="let user of users" class="width-50-percents margin-0-auto">-->
+<!--      <mat-expansion-panel-header>-->
+<!--        <mat-panel-title>-->
+<!--          {{user.name}} {{user.surname}}-->
+<!--        </mat-panel-title>-->
+<!--      </mat-expansion-panel-header>-->
+<!--      <mat-list>-->
+<!--        <mat-list-item>Name: {{user.name}}</mat-list-item>-->
+<!--        <mat-list-item>Surname: {{user.surname}}</mat-list-item>-->
+<!--        <mat-list-item>Login: {{user.login}}</mat-list-item>-->
+<!--        <mat-list-item>Active: {{user.is_user_active ? 'Yes' : 'No'}}</mat-list-item>-->
+<!--        <mat-list-item>City: {{user.fromCity}}</mat-list-item>-->
+<!--      </mat-list>-->
+<!--      <div class="buttons-wrapper">-->
+<!--        <a class="buttons-wrapper__item" mat-raised-button color="primary" routerLink="{{user._id}}">Edit</a>-->
+<!--        <button mat-raised-button color="warn" (dblclick)="deleteUser(user._id)">Delete</button>-->
+<!--      </div>-->
+<!--    </mat-expansion-panel>-->
+<!--  </mat-accordion>-->
+
+<!--  <button-->
+<!--    class="create-user-button"-->
+<!--    mat-fab color="primary"-->
+<!--    (click)="formFlag = true"-->
+<!--    *ngIf="!formFlag"-->
+<!--  >+</button>-->
+
+<!--  <mat-card *ngIf="formFlag" class="width-50-percents create-user-card">-->
+<!--    <mat-card-header>-->
+<!--      <mat-card-title>Create new user</mat-card-title>-->
+<!--      <button-->
+<!--        class="btn-close"-->
+<!--        mat-raised-button-->
+<!--        color="warn"-->
+<!--        (click)="closeCreateNewUserForm()"-->
+<!--      >Cancel</button>-->
+<!--    </mat-card-header>-->
+<!--    <mat-card-content>-->
+<!--      <form class="create-user-form" [formGroup]="form" (ngSubmit)="createUser(form.value)">-->
+<!--        <mat-form-field>-->
+<!--          <input-->
+<!--            matInput-->
+<!--            type="text"-->
+<!--            id="user-name"-->
+<!--            formControlName="name"-->
+<!--            placeholder="Name">-->
+<!--          <mat-error *ngIf="form.get('name').invalid && form.get('name').touched">-->
+<!--            Please enter a name-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field>-->
+<!--          <input-->
+<!--            matInput-->
+<!--            type="text"-->
+<!--            id="user-surname"-->
+<!--            formControlName="surname"-->
+<!--            placeholder="Surname">-->
+<!--          <mat-error *ngIf="form.get('surname').invalid && form.get('surname').touched">-->
+<!--            Please enter a surname-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field>-->
+<!--          <mat-select formControlName="city_id" id="from-city">-->
+<!--            <mat-option-->
+<!--              value=""-->
+<!--              selected>Select a city</mat-option>-->
+<!--            <mat-option-->
+<!--              *ngFor="let city of cities"-->
+<!--              [value]="city._id">{{city.city_name}}</mat-option>-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field>-->
+<!--          <input-->
+<!--            matInput-->
+<!--            type="text"-->
+<!--            formControlName="login"-->
+<!--            id="user-login"-->
+<!--            placeholder="Login">-->
+<!--          <mat-error *ngIf="form.controls['login'].errors && form.controls['login'].touched">-->
+<!--            Please enter a login-->
+<!--          </mat-error>-->
+<!--          <mat-error *ngIf="form.controls['login'].hasError('minlength')">-->
+<!--            Login must be at least {{form.get('login').errors.minlength.requiredLength}} characters:-->
+<!--            now it equals {{form.get('login').errors.minlength.actualLength}}-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field>-->
+<!--          <input-->
+<!--            matInput-->
+<!--            type="password"-->
+<!--            formControlName="password"-->
+<!--            id="user-password"-->
+<!--            placeholder="Password">-->
+
+<!--          <mat-error *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched">-->
+<!--            Please enter a password-->
+<!--          </mat-error>-->
+<!--          <mat-error *ngIf="form.controls['password'].hasError('minlength')">-->
+<!--            Password must be at least {{form.get('password').errors.minlength.requiredLength}} characters:-->
+<!--            now it equals {{form.get('password').errors.minlength.actualLength}}-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
+<!--        <div class="buttons-wrapper">-->
+<!--          <button-->
+<!--            class="btn buttons-wrapper__item"-->
+<!--            mat-raised-button-->
+<!--            [disabled]="form.pristine"-->
+<!--            type="reset"-->
+<!--          >Reset</button>-->
+<!--          <button-->
+<!--            class="btn"-->
+<!--            mat-raised-button-->
+<!--            color="primary"-->
+<!--            type="submit"-->
+<!--            [disabled]="form.invalid"-->
+<!--          >Submit</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </mat-card-content>-->
+<!--  </mat-card>-->
 </div>
-<!--<app-user-details [detailsUser]="selectedUser"></app-user-details>-->

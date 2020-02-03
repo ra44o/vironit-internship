@@ -1,0 +1,44 @@
+.info-edit {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.user-info {
+  width: 50%;
+}
+
+.user-info__header {
+  margin-bottom: 1rem;
+}
+
+.button-wrapper {
+  width: 50%;
+  display: flex;
+}
+
+.edit-button {
+  display: none;
+}
+
+.visible {
+  margin: auto;
+  display: block;
+}
+
+.form {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-password-wrapper {
+  display: flex;
+}
+
+.buttons-wrapper {
+  display: flex;
+}
+
+.btn-save {
+  margin: 0 1.5rem 0 auto;
+}

@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="content-wrapper">
+    <header class="content-wrapper__header">
+      <h2 class="header">Social Network</h2>
+      <div class="user-mini">
+        <button
+          mat-raised-button
+          (click)="logout()"
+        >Exit</button>
+      </div>
+    </header>
+    <main class="content-wrapper__main">
+      <aside class="menu">
+        <a class="menu__item" routerLink="profile">Profile</a>
+        <a class="menu__item" routerLink="following">Following</a>
+        <a class="menu__item" routerLink="followers">Followers</a>
+<!--        <a class="menu__item" routerLink="messages">Messages</a>-->
+        <a class="menu__item" routerLink="search">Search</a>
+      </aside>
+      <section class="router-content">
+        <router-outlet></router-outlet>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!--TODO чтобы ссылка работала от корневого домена, нужно в начале ставить слэш / -->

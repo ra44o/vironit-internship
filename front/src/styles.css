@@ -2,5 +2,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
 }
+
+html, body {
+  height: 100%;
+  position: relative;
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
