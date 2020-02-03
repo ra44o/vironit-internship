@@ -4,7 +4,8 @@ module.exports = {
     tokens: {
       access: {
         type: 'access',
-        expiresIn: 120
+        // expiresIn: 120
+        expiresIn: 300
       },
       refresh: {
         type: 'refresh',
